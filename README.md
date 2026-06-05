@@ -110,13 +110,16 @@ What are **free** **long term** **hackthons** that are coming this coming **year
      "The embedding model treated the professor's nickname as out-of-vocabulary and returned
      results from an unrelated review" is an explanation. -->
 
-**Question that failed:**
+**Question that failed:** What are some hackathons that are happening in massachusetts?
 
-**What the system returned:**
+**What the system returned:** Doesn't know based on provided results
 
-**Root cause (tied to a specific pipeline stage):**
+**Root cause (tied to a specific pipeline stage):** There weren't any hackthons available for massachusetts
 
-**What you would change to fix it:**
+
+**What you would change to fix it:** Add/find hackathons that are occuring in massachusetts
+
+
 
 ---
 
@@ -125,6 +128,39 @@ What are **free** **long term** **hackthons** that are coming this coming **year
 <!-- Reflect on how planning.md shaped your implementation.
      Answer both questions with at least 2–3 sentences each. -->
 
+
+I had to figure where I was going to grab data for hackathons that wasn't going to be a hurdle. I decided to use MLH and got this response from my AI:
+
+     Here are some free hackathons:
+
+     1. **GDG Solution Hacks** - June 27-29, Toronto, Canada
+     2. **SpurHacks** - June 20-22, Waterloo, Ontario, Canada
+     3. **Hack4Bengal 4.0** - June 20-22, Newtown, West Bengal, India
+     4. **Hack 4 Her** - June 14-15, Monterrey, Nuevo León, Mexico
+     5. **Global Hack Week: GenAI** - June 13-19, Everywhere, Worldwide
+     6. **MasseyHacks** - May 17-18, Windsor, Ontario, Canada
+     7. **JAMHacks 9** - May 16-18, Waterloo, Ontario, Canada
+     8. **NMIT HACKS 2025** - May 16-18, Bengaluru, Karnataka, India
+     9. **DesignVerse at UCR** - May 10-11, Riverside, California, US
+     10. **HACKMESA** - May 9-10, Los Angeles, CA, US
+     11. **Global Hack Week: Open Source Week** - May 9-15, Everywhere, Worldwide
+     12. **GDSCHACKS** - May 2-4, Guelph, Ontario, Canada
+     13. **HackUPC** - May 2-4, Barcelona, Catalunya, Spain
+     14. **HackDartmouth X** - April 26-27, Hanover, New Hampshire, US
+     15. **DragonHacks 11** - April 26-27, Philadelphia, PA, US
+     16. **JacHacks** - April 26-27, Quebec, Sainte-Anne-de-Bellevue, Canada
+     17. **MorganHacks** - April 26-27, Baltimore, Maryland, US
+     18. **Hacktech by Caltech** - April 25-27, Pasadena, CA, US
+     19. **LA Hacks** - April 25-27, Los Angeles, California, US
+     20. **HackDavis 2025** - April 19-20, Davis, California, US
+     21. **UTA Datathon** - April 12-13, Arlington, Texas, US
+     22. **Hackabull** - April 12-13, Tampa, Florida, US
+     23. **Bit Hacks** - April 11-13, Irvine, California, US
+     24. **Bitcamp 2025** - April 11-13, College Park, Maryland, US
+
+     All of these hackathons are free to attend.
+
+This response shows strong understanding, quick explaining, and successful implemation and formatting.
 **One way the spec helped you during implementation:**
 
 **One way your implementation diverged from the spec, and why:**

@@ -36,7 +36,7 @@ your-uni/clubs
 | 7 | your-univerity/clubs | place to find clubs inside your school| |
 | 8 | your-city/local event | place to find local events | |
 | 9 | ChatGpt/prompt="Hackathons best for students" | AI search 
-| 10 | | | |
+| 10 | MLH.io | place filled with hackathons| |
 
 ---
 
@@ -47,12 +47,12 @@ your-uni/clubs
      numbers fit the structure of your documents.
      A review-heavy corpus warrants different chunking than a long FAQ. -->
 
-**Chunk size:** 350 characters
+**Chunk size:** 70
 
 
-**Overlap:** 
+**Overlap:** 1
 
-**Reasoning:**
+**Reasoning:** simple text on the information on the hackathon
 
 ---
 
@@ -125,6 +125,7 @@ your-uni/clubs
      with my specified chunk size and overlap" is a plan. -->
 
 **Milestone 3 — Ingestion and chunking:**
+
 
 **Milestone 4 — Embedding and retrieval:**
 
