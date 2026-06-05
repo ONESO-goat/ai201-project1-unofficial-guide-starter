@@ -9,30 +9,25 @@
 
 ## Domain
 
-<!-- What topic or category of knowledge does your system cover?
-     Why is this knowledge valuable, and why is it hard to find through official channels?
-     Example: "Student reviews of CS professors at [university] — useful because official
-     course descriptions don't reflect teaching style, exam difficulty, or workload." -->
+
+"Hackthons for students", this can include free - paid - beginner - AI produced - etc.
 
 ---
 
 ## Document Sources
 
-<!-- List every source you collected documents from.
-     Be specific: include URLs, subreddit names, forum thread titles, or file names.
-     Aim for variety — sources that together cover different subtopics or perspectives. -->
 
-| # | Source | Type | URL or file path |
-|---|--------|------|-----------------|
-| 1 | | | |
-| 2 | | | |
-| 3 | | | |
-| 4 | | | |
-| 5 | | | |
-| 6 | | | |
-| 7 | | | |
-| 8 | | | |
-| 9 | | | |
+| # | Source | Description | URL or location |
+|---|--------|-------------|-----------------|
+| 1 | reddit/hackthons |place to find hackthons | |
+| 2 | reddit/tech  | place to find tech related events| |
+| 3 | reddit/cs | place to find cs related events| |
+| 4 | reddit/networking | place to find networking related events| |
+| 5 | google/hackathons | place to find hackthons | |
+| 6 | your-univerity/college-website/tech | place to find tech related events | |
+| 7 | your-univerity/clubs | place to find clubs inside your school| |
+| 8 | your-city/local event | place to find local events | |
+| 9 | ChatGpt/prompt="Hackathons best for students" | AI search 
 | 10 | | | |
 
 ---
@@ -46,13 +41,13 @@
      - Any preprocessing you did before chunking (e.g., stripping HTML, removing headers)
      - What your final chunk count was across all documents -->
 
-**Chunk size:**
+**Chunk size:** 300
 
-**Overlap:**
+**Overlap:** 1
 
-**Why these choices fit your documents:**
+**Why these choices fit your documents:** Simple queries
 
-**Final chunk count:**
+**Final chunk count:** 50-300
 
 ---
 
@@ -79,27 +74,25 @@
      Do not just say "I told it to use the documents" — show the actual instruction or explain
      the mechanism. -->
 
-**System prompt grounding instruction:**
+**System prompt grounding instruction:** State the main key from my curosity ex:
+What are **free** **long term** **hackthons** that are coming this coming **year** in **<my area>** 
 
-**How source attribution is surfaced in the response:**
+**How source attribution is surfaced in the response:** 
 
 ---
 
 ## Evaluation Report
 
-<!-- Run your 5 test questions from planning.md through your system and record the results.
-     Be honest — a partially accurate or inaccurate result that you explain well is more
-     valuable than a suspiciously perfect result. -->
+| # | Question | Expected answer |
+|---|----------|-----------------|
+| 1 | "What are some upcoming hackathons near me?" |  "list of hackathons near me" |
+| 2 | "What are some free hackathons near me?" | "list of free hackthons" |
 
-| # | Question | Expected answer | System response (summarized) | Retrieval quality | Response accuracy |
-|---|----------|-----------------|------------------------------|-------------------|-------------------|
-| 1 | | | | | |
-| 2 | | | | | |
-| 3 | | | | | |
-| 4 | | | | | |
-| 5 | | | | | |
+| 3 | "Who are the winners from the '<hackathon name>' hackathon?" | "Name or Names of winners" |
+| 4 | "I want to focus on <field>, which tech event is best to gain the knowledge?"| "List of events that related to that spific field" |
+| 5 | "What hackathons will be taking place in <state>? | "List of hackathons inside that state" |
 
-**Retrieval quality:** Relevant / Partially relevant / Off-target  
+**Retrieval quality:** **Relevant** / Partially relevant / Off-target  
 **Response accuracy:** Accurate / Partially accurate / Inaccurate
 
 ---
