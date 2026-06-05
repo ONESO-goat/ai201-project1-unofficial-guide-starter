@@ -39,8 +39,24 @@ class Embeddings:
     #     print(f"Loaded {len(documents)} rule document(s): {[d['game'] for d in documents]}")
     #     return documents
 
-
-    def chunk_document(self, text, info):
+    def dict_to_string(self, h:dict):
+        """Hackthon already a dict, just transform it into string"""
+        text = ""
+        for key, values in  h.items():
+            text+=f"The '{key}' of the hackathon: {values}\n\n" # note, the is_free might be dumb but hoepfully the AI is smart enough to understand 
+        return text
+    
+        # return f"""
+        # The name of the hackthon: {h.get("name", "N/A")}\n
+        # The date it is active: {h.get("date", "N/A")}\n
+        # The location it will be taking place: {h.get('location', "N/A")}\n 
+        # Tags for the hackathon: {" ".join(i for i in h.get('tags', 'None'))}\n
+        # The start date: {h.get("start_date", 'N/A')}\n
+        # The end date: {h.get("end_date", 'N/A')}\n
+        # The hackathon is free to attend: {h.get('is_free', "N/A")}\n
+        # """
+        
+    def chunk_document(self, text, info="hackathon"):
         
         chunk_size = Config.CHUNK_SIZE
         overlap = Config.CHUNK_OVERLAP
@@ -69,3 +85,21 @@ class Embeddings:
             start += chunk_size - overlap # move the start point forward by chunk_size minus the overlap to create the next chunk
 
         return chunks
+
+
+if __name__ in "__main__":
+    e = Embeddings()
+    test = {
+    "name": "Bitcamp 2025",
+    "date": "APR 11 - 13",
+    "location": "College Park, Maryland, US",
+    "tags": [
+      "In-Person"
+    ],
+    "start_date": "2025-04-11T22:00:00Z",
+    "end_date": "2025-04-13T22:00:00Z",
+    "url": "https://bit.camp/",
+    "is_free": "true"
+  }
+    
+    print(e.chunk_document(e.dict_to_string(test)))
