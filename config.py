@@ -8,8 +8,8 @@ class Config:
     GROQ_API_KEY = os.getenv("GROQ_API_KEY")
     
     LLM_MODEL = "llama-3.3-70b-versatile"
-    CHUNK_SIZE = 70
-    CHUNK_OVERLAP = 20
+    CHUNK_SIZE = 300
+    CHUNK_OVERLAP = 60
     MIN_CHUNK_LENGTH = 50
 
     # --- Embeddings ---

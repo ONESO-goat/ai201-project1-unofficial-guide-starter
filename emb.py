@@ -39,11 +39,18 @@ class Embeddings:
     #     print(f"Loaded {len(documents)} rule document(s): {[d['game'] for d in documents]}")
     #     return documents
 
-    def dict_to_string(self, h:dict):
+    def dict_to_string(self, h:dict|list):
         """Hackthon already a dict, just transform it into string"""
         text = ""
-        for key, values in  h.items():
-            text+=f"The '{key}' of the hackathon: {values}\n\n" # note, the is_free might be dumb but hoepfully the AI is smart enough to understand 
+        if isinstance(h, dict):
+            for key, values in  h.items():
+                text+=f"The '{key}' of the hackathon: {values}\n\n" # note, the is_free might be dumb but hoepfully the AI is smart enough to understand 
+        elif isinstance(h, list):
+            count = 1
+            for item in h:
+                text += f"================ Hackathon {count} ================\n"
+                text += self.dict_to_string(item)
+                count += 1
         return text
     
         # return f"""
@@ -83,7 +90,7 @@ class Embeddings:
             # Advance by (chunk_size - overlap) so the next chunk shares
             # `overlap` characters with the tail of this one.
             start += chunk_size - overlap # move the start point forward by chunk_size minus the overlap to create the next chunk
-
+        print(f"Document chunked into {len(chunks)} chunks with chunk size {chunk_size} and overlap {overlap}. typing: {type(chunks)}")
         return chunks
 
 
