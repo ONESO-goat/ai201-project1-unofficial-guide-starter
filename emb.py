@@ -2,6 +2,9 @@ import os
 import chromadb
 from chromadb.utils import embedding_functions
 from config import Config
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 
@@ -95,14 +98,19 @@ class Embeddings:
         # """
         
     def chunk_document(self, 
+                       counter:int,
                        text:str, 
                        name:str,
                        tags,
+                       start_date:str,
+                       end_date:str,
                        location:str,
                        source:str,
                        info="hackathon", 
-                       price:int=0, 
-                       is_free:bool=False):
+                       price=0, 
+                       is_free:bool=False,
+                       prize_amount:str='',
+                       return_counter=False):
         
         chunk_size = Config.CHUNK_SIZE
         overlap = Config.CHUNK_OVERLAP
@@ -110,7 +118,7 @@ class Embeddings:
         used_ids = []
         chunks = []
         prefix = info.lower().replace(" ", "_")
-        counter = 0
+        #counter = 0
 
         start = 0
         while start < len(text): # start loop
@@ -120,10 +128,11 @@ class Embeddings:
             if len(chunk_text) >= min_length:
                 # if the length of the chunk is long enough, add it to the list with metadata
                 
-                while counter in used_ids:
-                    counter = max(used_ids) + 1
-                    
-                   
+                
+                # while counter in used_ids:
+                #     counter = max(used_ids) + 1
+                counter+=1
+                print(f"ID BEING USED: \n\t\u2022{counter}")
                 chunks.append({
                     "source":source,
                     "tags": tags,
@@ -131,17 +140,23 @@ class Embeddings:
                     "name": name,
                     "location":location,
                     "is_free": is_free,
+                    "prize_amounts": prize_amount,
                     "price": price,
+                    "start_date": start_date,
+                    "end_date": end_date,
                     "subject": info,
                     "chunk_id": f"{prefix}_{counter}",
                 })
+                print(f"NEW CHUNK LIST SIZE: {len(chunks)}")
                 used_ids.append(counter)
-                counter += 1 # increase counter for unique chunk_id
+                #counter += 1 # increase counter for unique chunk_id
 
             # Advance by (chunk_size - overlap) so the next chunk shares
             # `overlap` characters with the tail of this one.
             start += chunk_size - overlap # move the start point forward by chunk_size minus the overlap to create the next chunk
-        print(f"Document chunked into {len(chunks)} chunks with chunk size {chunk_size} and overlap {overlap}. typing: {type(chunks)}")
+        #print(f"Document chunked into {len(chunks)} chunks with chunk size {chunk_size} and overlap {overlap}. typing: {type(chunks)}")
+        if return_counter:
+            return chunks, counter
         return chunks
 
 

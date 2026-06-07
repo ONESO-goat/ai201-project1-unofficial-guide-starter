@@ -21,7 +21,7 @@ def run_ingestion():
     print("Ingesting rule documents...")
     data = s.sources(dict)
     all_chunks = []
-
+    counter = 0
     if isinstance(data, dict):
         for source, dt in data.items():
             print(f"CURRENT SOURCE: {source}")
@@ -31,17 +31,22 @@ def run_ingestion():
                 if not t:
                     t = "N/A"
                 try:
-                    chunks = e.chunk_document(text=e.dict_to_string(hackathon),
+                    chunks,counter = e.chunk_document(counter=counter,
+                                            text=e.dict_to_string(hackathon),
                                             location=hackathon['location'],
                                             name=hackathon["name"], 
+                                            start_date=hackathon.get("start_date", "N/A"),
+                                            end_date=hackathon.get("end_date", "N/A"),
+                                            price=hackathon.get("prize_amount", "N/A"),
                                             tags=t,
                                             source=hackathon["source"],
-                                            is_free=hackathon.get('is_free', "N/A"))
+                                            is_free=hackathon.get('is_free', "N/A"),
+                                            return_counter=True)
                     all_chunks.extend(chunks)
                 except:
                     continue
-                
-
+                print(f"NEW RETURNED COUNTER: {counter}")
+    print("Looping process completed")
     if all_chunks:
         e.embed_and_store(all_chunks)
         print(f"Ingestion complete. {len(all_chunks)} chunks stored.")
