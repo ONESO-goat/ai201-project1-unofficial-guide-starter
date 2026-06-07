@@ -72,7 +72,7 @@ class Chatbot:
             
             except Exception as ex:
                 print(f"There was an error while generating response: \n\t\u2022 {ex}")
-                input("\npress ENTER for knowledgement ")
+                #input("\npress ENTER for knowledgement ")
                 
         else:
             try:

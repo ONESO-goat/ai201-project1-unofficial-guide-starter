@@ -1,8 +1,13 @@
 from AI import Chatbot
 from sources import Sources
 from emb import Embeddings
+from gui import GUI
+
 s = Sources()
 e = Embeddings()
+bot = Chatbot()
+gui = GUI(bot, e)
+
 def run_ingestion():
     """
     Load rule documents, chunk them, and store in ChromaDB.
@@ -60,16 +65,23 @@ def run_ingestion():
 def main():
     """ This is a simple test to see if the chatbot can generate answers based on the provided chunks.
     We create a chatbot instance, an embeddings instance, and load the MLH breakdown document."""
-    bot = Chatbot()
-    e = Embeddings()
 
     chunks = e.get_collection()
+    if chunks.count() <= 0:
+        run_ingestion()
+        chunks = e.get_collection()
+        
+    print(f"Loaded {chunks.count()} chunks: [{chunks}]")
+    #input("Press ENTER to continue...")
     questions = [ # my questions from planning.md
         "What are some upcoming hackathons?",
         "What are some free hackathons?",
-        "Who are the winners from Bitcamp 2025?",
-        "I want to focus on Data science, which tech event is best to gain the knowledge?",
-        "What hackathons will be taking place near Cambridge, MA?",
+        "I am visiting Californa, what is the hackthon history?",
+        "What are some hackathons stated on reddit?",
+        "What are the common themes for hackathons?",
+        "Can you provide me hackathons that are online?",
+        "What hackathon will you recommend?",
+        "What hackathons will be taking place soon?",
     ]
     for q in questions:
         print(f"Question: {q}")
@@ -79,8 +91,9 @@ def main():
 if __name__ == "__main__":
     import traceback
     try:
-        run_ingestion()
+        #run_ingestion()
         main()
+        gui.demo.launch()
     except Exception as ex:
         print(f"ERROR: \n\t\u2022{ex}")
         traceback.print_exc()

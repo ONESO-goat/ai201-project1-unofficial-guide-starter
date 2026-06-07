@@ -1,6 +1,7 @@
 import os
 import chromadb
 from chromadb.utils import embedding_functions
+import traceback
 from config import Config
 import logging
 
@@ -158,6 +159,68 @@ class Embeddings:
         if return_counter:
             return chunks, counter
         return chunks
+    
+    def readable(self, results):
+        ids = results['ids'][0]
+        docs = results['documents'][0]
+        metadatas = results['metadatas'][0]
+        distances = results['distances'][0]
+
+        # Print out a cleanly formatted view
+        for idx, (doc_id, doc_text, meta, dist) in enumerate(zip(ids, docs, metadatas, distances), 1):
+            print(f"--- MATCH #{idx} ---")
+            print(f"ID: {doc_id}")
+            print(f"Game: {meta.get('subject', 'Unknown')}")
+            print(f"Distance Score: {dist:.4f}")
+            print(f"Text:\n{doc_text.strip()}\n")
+            
+    def retrieve(self,query, n_results=Config.N_RESULTS):
+        """
+        Find the most relevant rule chunks for a user's question.
+
+        """
+        if self._collection.count() == 0:
+            return []
+
+        
+        try:
+            test = self._collection.query(query_texts=[query], n_results=n_results)
+            print(f"INFORMATION: {self.readable(test)} - {type(test)}")
+            print(f"{test}")
+            #input("Press ENTER to continue...")
+            l = []
+            for i in range(n_results):
+                format = {
+                    "id": '',
+                    "text": '',
+                    "topic": 'hackathon',
+                    'distance': 0.0
+                }
+                for key, value in test.items():
+                    print(f"KEY:\n\t\u2022 {key} - \nVALUE:\n\t\u2022 {value}")
+                    if not value:
+                        continue
+                    if key == 'ids':
+                        format['id'] = value[0][i]
+                        
+                    if key == 'document':
+                        format['text'] = value[0][i]
+                        
+                    if key == 'metadatas':
+                        
+                        format['name'] = value[0][i]['source']
+                        
+                    if key == 'distances':
+                        format['distance'] = value[0][i]
+                    l.append(format)
+                    
+            print(f"\nFORMAT: \n\t\u2022{l}")
+            
+            return l
+        except Exception as ex:
+            print(f"\nError during retriving process: \n\t\u2022{ex}")
+            traceback.print_exc()
+        return []
 
 
 if __name__ in "__main__":
@@ -176,8 +239,5 @@ if __name__ in "__main__":
 #   }
     
 #     print(e.chunk_document(e.dict_to_string(test)))
-    test = [1,2,3,4,5,6,7,8,9,10]
-    n = 5
-    if n in test:
-        n = max(test) + 1
-    print(n)
+    e = Embeddings()
+    print(e.retrieve("What are some free hackathons?"))

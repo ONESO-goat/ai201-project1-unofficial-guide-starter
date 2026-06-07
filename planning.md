@@ -9,21 +9,10 @@
 
 ## Domain
 
-<!-- What domain did you choose? Why is this knowledge valuable and hard to find through official channels? -->
-
 "hackthons or tech related events students can attend"
 ---
 
 ## Documents
-reddit/hackthons 
-reddit/tech 
-reddit/cs 
-reddit/networking 
-google/hackathons
-your-uni-website/tech
-your-uni/clubs
-<!-- List your specific sources: URLs, subreddit names, forum threads, or file descriptions.
-     Aim for at least 10 sources that together cover different subtopics or perspectives within your domain. -->
 
 | # | Source | Description | URL or location |
 |---|--------|-------------|-----------------|
@@ -35,49 +24,36 @@ your-uni/clubs
 | 6 | your-univerity/college-website/tech | place to find tech related events | |
 | 7 | your-univerity/clubs | place to find clubs inside your school| |
 | 8 | your-city/local event | place to find local events | |
-| 9 | ChatGpt/prompt="Hackathons best for students" | AI search 
+| 9 | Devpost/Hackathons| web application with hackathons
 | 10 | MLH.io | place filled with hackathons| |
 
 ---
 
 ## Chunking Strategy
 
-<!-- How will you split documents into chunks?
-     State your chunk size (in tokens or characters), overlap size, and explain why those
-     numbers fit the structure of your documents.
-     A review-heavy corpus warrants different chunking than a long FAQ. -->
-
-**Chunk size:** 70
+**Chunk size:** 300
 
 
-**Overlap:** 1
+**Overlap:** 60
 
-**Reasoning:** simple text on the information on the hackathon
+**Reasoning:** simple text on the information on the hackathon. Fits best for quick responses in a structured manner.
 
 ---
 
 ## Retrieval Approach
 
-<!-- Which embedding model are you using (e.g., all-MiniLM-L6-v2 via sentence-transformers)?
-     How many chunks will you retrieve per query (top-k)?
-     If you were deploying this for real users and cost wasn't a constraint, what tradeoffs
-     would you weigh in choosing a different embedding model — context length, multilingual
-     support, accuracy on domain-specific text, latency? -->
 
-**Embedding model:**
+**Embedding model:** "llama-3.3-70b-versatile"
 
-**Top-k:**
+**Top-k:** 300
 
-**Production tradeoff reflection:**
+**Production tradeoff reflection:** Some responses are intentionally concise because the bot prioritizes information from its hackathon focused training data. Given the scope of this project, I focused on core functionality and retrieval quality. For a production or public facing deployment, I would invest additional effort in response refinement, broader knowledge coverage, and user experience improvements.
 
 ---
 
 ## Evaluation Plan
 
-<!-- List your 5 test questions with their expected correct answers.
-     Questions should be specific enough that you can judge whether the system's response
-     is right or wrong. "What are good dining halls?" is too vague.
-     "What do students say about wait times at [dining hall name] during lunch?" is testable. -->
+
 
 | # | Question | Expected answer |
 |---|----------|-----------------|
@@ -92,11 +68,7 @@ your-uni/clubs
 
 ## Anticipated Challenges
 
-<!-- What could go wrong? Name at least two specific risks with reasoning.
-     Consider: noisy or inconsistent documents, missing source attribution, off-topic
-     retrieval, chunks that split key information across boundaries. -->
-
-1. Events that arent related to my topic
+1. Events that arent related to my topic or common information not being listed
 
 2. Not enough information on the provided response, E.Q the date it's taking place.
 
@@ -104,25 +76,28 @@ your-uni/clubs
 
 ## Architecture
 
-<!-- Draw a diagram of your pipeline showing the five stages:
-     Document Ingestion → Chunking → Embedding + Vector Store → Retrieval → Generation
-     Label each stage with the tool or library you're using.
-     You can use ASCII art, a Mermaid diagram, or embed a sketch as an image.
-     You'll use this diagram as context when prompting AI tools to implement each stage. -->
+libaries being used include:
+
+     - those seen in Rulebot, 
+     - Ollama, 
+     - requests
+
+1. set up 'AI' with groq (or ollama)
+
+2. Train on data inside class 'Sources', data from Reddit, MLH, and devpost
+
+3. Embedding process with class 'Embedding' with provides vector storing, pretty much just breaking down the data and letting the AI create chunks
+
+4. send data to frontend/gui with class 'GUI'  
 
 ---
 
 ## AI Tool Plan
 
-<!-- For each part of the pipeline below, describe:
-     - Which AI tool you plan to use (Claude, Copilot, ChatGPT, etc.)
-     - What you'll give it as input (which sections of this planning.md, which requirements)
+     - AI being used are Claude, Ollama, Groq
+     - give it inputs of quetions like those seen on planning.md 
      - What you expect it to produce
-     - How you'll verify the output matches your spec
-
-     "I'll use AI to help me code" is not a plan.
-     "I'll give Claude my Chunking Strategy section and ask it to implement chunk_text()
-     with my specified chunk size and overlap" is a plan. -->
+     - Verify the output matches my spec by making sure the data stays inside the trained data
 
 **Milestone 3 — Ingestion and chunking:**
 

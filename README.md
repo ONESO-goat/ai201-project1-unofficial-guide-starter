@@ -16,7 +16,6 @@
 
 ## Document Sources
 
-
 | # | Source | Description | URL or location |
 |---|--------|-------------|-----------------|
 | 1 | reddit/hackthons |place to find hackthons | |
@@ -27,57 +26,55 @@
 | 6 | your-univerity/college-website/tech | place to find tech related events | |
 | 7 | your-univerity/clubs | place to find clubs inside your school| |
 | 8 | your-city/local event | place to find local events | |
-| 9 | ChatGpt/prompt="Hackathons best for students" | AI search 
-| 10 | | | |
+| 9 | Devpost/Hackathons| web application with hackathons
+| 10 | MLH.io | place filled with hackathons| |
 
 ---
 
 ## Chunking Strategy
 
-<!-- Describe your chunking approach with enough specificity that someone else could reproduce it.
-     Include:
-     - Chunk size (characters or tokens) and why that size fits your documents
-     - Overlap size and why (or why not) you used overlap
-     - Any preprocessing you did before chunking (e.g., stripping HTML, removing headers)
-     - What your final chunk count was across all documents -->
 
 **Chunk size:** 300
 
-**Overlap:** 1
+**Overlap:** 60
 
 **Why these choices fit your documents:** Simple queries
 
-**Final chunk count:** 50-300
+**Final chunk count:** 3-5
 
 ---
 
 ## Embedding Model
 
-<!-- Name the embedding model you used and explain your choice.
-     Then answer: if you were deploying this system for real users and cost wasn't a constraint,
-     what tradeoffs would you weigh in choosing a different model?
-     Consider: context length limits, multilingual support, accuracy on domain-specific text,
-     latency, and local vs. API-hosted. -->
 
-**Model used:**
+
+**Model used:** "llama-3.3-70b-versatile"
 
 **Production tradeoff reflection:**
+Some responses are intentionally concise because the bot prioritizes information from its hackathon focused training data. Given the scope of this project, I focused on core functionality and retrieval quality. For a production or public facing deployment, I would invest additional effort in response refinement, broader knowledge coverage, and user experience improvements.
 
 ---
 
 ## Grounded Generation
 
-<!-- Explain how your system enforces grounding — how does it prevent the LLM from answering
-     beyond the retrieved documents?
-     Describe both your system prompt (what instruction you gave the model) and any structural
-     choices (e.g., how you formatted the context, whether you filtered low-relevance chunks).
-     Do not just say "I told it to use the documents" — show the actual instruction or explain
-     the mechanism. -->
+**System prompt grounding instruction:** Extract and prioritize the user's key constraints and intent from the query. For example:
 
-**System prompt grounding instruction:** State the main key from my curosity ex:
-What are **free** **long term** **hackthons** that are coming this coming **year** in **<my area>** 
+User query:
+"What are **free**, **long-term** hackathons that are coming this **year** in **my area**?"
 
-**How source attribution is surfaced in the response:** 
+Key information to retain:
+
+* Event type: Hackathons
+* Cost constraint: Free
+* Duration constraint: Long-term
+* Time constraint: This year / upcoming
+* Location constraint: User's area
+* Intent: Discover and recommend relevant events matching all specified criteria
+
+The assistant should use these constraints to guide retrieval, ranking, and response generation.
+
+**How source attribution is surfaced in the response:** Include a source citation or event link for every recommended hackathon. Clearly associate each recommendation with its source so users can verify event details, dates, eligibility requirements, and registration information.
+
 
 ---
 
@@ -99,17 +96,6 @@ What are **free** **long term** **hackthons** that are coming this coming **year
 
 ## Failure Case Analysis
 
-<!-- Identify at least one question where retrieval or generation did not work as expected.
-     Write a specific explanation of *why* it failed, tied to a part of the pipeline.
-
-     "The answer was wrong" is not an explanation.
-
-     "The relevant information was split across a chunk boundary, so retrieval returned
-     only half the context — the model didn't have enough to answer correctly" is an explanation.
-
-     "The embedding model treated the professor's nickname as out-of-vocabulary and returned
-     results from an unrelated review" is an explanation. -->
-
 **Question that failed:** What are some hackathons that are happening in massachusetts?
 
 **What the system returned:** Doesn't know based on provided results
@@ -124,10 +110,6 @@ What are **free** **long term** **hackthons** that are coming this coming **year
 ---
 
 ## Spec Reflection
-
-<!-- Reflect on how planning.md shaped your implementation.
-     Answer both questions with at least 2–3 sentences each. -->
-
 
 I had to figure where I was going to grab data for hackathons that wasn't going to be a hurdle. I decided to use MLH and got this response from my AI:
 
@@ -161,31 +143,27 @@ I had to figure where I was going to grab data for hackathons that wasn't going 
      All of these hackathons are free to attend.
 
 This response shows strong understanding, quick explaining, and successful implemation and formatting.
+
 **One way the spec helped you during implementation:**
 
-**One way your implementation diverged from the spec, and why:**
+The specification helped define which parts of the user's query were most important to extract and preserve (e.g., location, cost, timeframe, and event type). This made it easier to design the retrieval and ranking logic because the bot could consistently prioritize hackathons that matched the user's stated constraints.
 
+
+**One way your implementation diverged from the spec, and why:**
+The implementation did not always enforce every constraint perfectly when relevant data was limited. For example, if there were few or no free long-term hackathons available in the user's area, the bot could return partially matching results instead of no results at all. This tradeoff was made to improve usefulness and provide users with potentially relevant alternatives rather than an empty response.
 ---
 
 ## AI Usage
 
-<!-- Describe at least 2 specific instances where you used an AI tool during this project.
-     For each: what did you give the AI as input, what did it produce, and what did you
-     change, override, or direct differently?
 
-     "I used Claude to help me code" is not sufficient.
-     "I gave Claude my Chunking Strategy section from planning.md and asked it to implement
-     chunk_text(). It returned a function using a fixed character split. I overrode the
-     chunk size from 500 to 200 because my documents are short reviews, not long guides." -->
+**Instance 1** Debugging
 
-**Instance 1**
+- *What I gave the AI:* Buggy code and terminal tracebacks
+- *What it produced:*  Possible fixes
+- *What I changed or overrode:* Kept prompting until confusing bugs disappeared
 
-- *What I gave the AI:*
-- *What it produced:*
-- *What I changed or overrode:*
+**Instance 2** finding sources for hackathons 
 
-**Instance 2**
-
-- *What I gave the AI:*
-- *What it produced:*
-- *What I changed or overrode:*
+- *What I gave the AI:* Sites with free APIS for hackathons
+- *What it produced:* Sites to use with free APIs for the "request" package
+- *What I changed or overrode:* Changed the info into readable code or inside classes
