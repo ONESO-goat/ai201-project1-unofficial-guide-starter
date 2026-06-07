@@ -107,7 +107,7 @@ class Embeddings:
         chunk_size = Config.CHUNK_SIZE
         overlap = Config.CHUNK_OVERLAP
         min_length = Config.MIN_CHUNK_LENGTH
-
+        used_ids = []
         chunks = []
         prefix = info.lower().replace(" ", "_")
         counter = 0
@@ -119,6 +119,11 @@ class Embeddings:
 
             if len(chunk_text) >= min_length:
                 # if the length of the chunk is long enough, add it to the list with metadata
+                
+                while counter in used_ids:
+                    counter = max(used_ids) + 1
+                    
+                   
                 chunks.append({
                     "source":source,
                     "tags": tags,
@@ -130,6 +135,7 @@ class Embeddings:
                     "subject": info,
                     "chunk_id": f"{prefix}_{counter}",
                 })
+                used_ids.append(counter)
                 counter += 1 # increase counter for unique chunk_id
 
             # Advance by (chunk_size - overlap) so the next chunk shares
@@ -140,18 +146,23 @@ class Embeddings:
 
 
 if __name__ in "__main__":
-    e = Embeddings()
-    test = {
-    "name": "Bitcamp 2025",
-    "date": "APR 11 - 13",
-    "location": "College Park, Maryland, US",
-    "tags": [
-      "In-Person"
-    ],
-    "start_date": "2025-04-11T22:00:00Z",
-    "end_date": "2025-04-13T22:00:00Z",
-    "url": "https://bit.camp/",
-    "is_free": "true"
-  }
+#     e = Embeddings()
+#     test = {
+#     "name": "Bitcamp 2025",
+#     "date": "APR 11 - 13",
+#     "location": "College Park, Maryland, US",
+#     "tags": [
+#       "In-Person"
+#     ],
+#     "start_date": "2025-04-11T22:00:00Z",
+#     "end_date": "2025-04-13T22:00:00Z",
+#     "url": "https://bit.camp/",
+#     "is_free": "true"
+#   }
     
-    print(e.chunk_document(e.dict_to_string(test)))
+#     print(e.chunk_document(e.dict_to_string(test)))
+    test = [1,2,3,4,5,6,7,8,9,10]
+    n = 5
+    if n in test:
+        n = max(test) + 1
+    print(n)

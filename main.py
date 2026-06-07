@@ -25,14 +25,22 @@ def run_ingestion():
     if isinstance(data, dict):
         for source, dt in data.items():
             print(f"CURRENT SOURCE: {source}")
+            
             for hackathon in dt:
-                chunks = e.chunk_document(text=e.dict_to_string(hackathon),
-                                          location=hackathon['location'],
-                                          name=hackathon["name"], 
-                                          tags=hackathon.get("themes", "tags"),
-                                          source=hackathon["source"],
-                                          is_free=hackathon.get('is_free', "N/A"))
-                all_chunks.extend(chunks)
+                t = hackathon.get("themes", "tags")
+                if not t:
+                    t = "N/A"
+                try:
+                    chunks = e.chunk_document(text=e.dict_to_string(hackathon),
+                                            location=hackathon['location'],
+                                            name=hackathon["name"], 
+                                            tags=t,
+                                            source=hackathon["source"],
+                                            is_free=hackathon.get('is_free', "N/A"))
+                    all_chunks.extend(chunks)
+                except:
+                    continue
+                
 
     if all_chunks:
         e.embed_and_store(all_chunks)
