@@ -140,7 +140,7 @@ class Embeddings:
                     "text":text,
                     "name": name,
                     "location":location,
-                    "is_free": is_free,
+                    "the_hackathon_is_free": is_free,
                     "prize_amounts": prize_amount,
                     "price": price,
                     "start_date": start_date,
@@ -185,8 +185,8 @@ class Embeddings:
         
         try:
             test = self._collection.query(query_texts=[query], n_results=n_results)
-            print(f"INFORMATION: {self.readable(test)} - {type(test)}")
-            print(f"{test}")
+            #print(f"INFORMATION: {self.readable(test)} - {type(test)}")
+            #print(f"{test}")
             #input("Press ENTER to continue...")
             l = []
             for i in range(n_results):
@@ -202,16 +202,20 @@ class Embeddings:
                         continue
                     if key == 'ids':
                         format['id'] = value[0][i]
+                        print(f"ADDED ID: {format['id']}")
                         
-                    if key == 'document':
+                    if key == 'documents':
                         format['text'] = value[0][i]
-                        
+                        print(f"ADDED TEXT: {format['text']}")
                     if key == 'metadatas':
                         
                         format['name'] = value[0][i]['source']
+                        print(f"ADDED NAME: {format['name']}")
                         
                     if key == 'distances':
                         format['distance'] = value[0][i]
+                        print(f"ADDED DISTANCE: {format['distance']}")
+                        
                     l.append(format)
                     
             print(f"\nFORMAT: \n\t\u2022{l}")

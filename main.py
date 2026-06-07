@@ -45,7 +45,7 @@ def run_ingestion():
                                             price=hackathon.get("prize_amount", "N/A"),
                                             tags=t,
                                             source=hackathon["source"],
-                                            is_free=hackathon.get('is_free', "N/A"),
+                                            is_free=hackathon.get('the_hackathon_is_free', "N/A"),
                                             return_counter=True)
                     all_chunks.extend(chunks)
                 except:
@@ -75,12 +75,11 @@ def main():
     #input("Press ENTER to continue...")
     questions = [ # my questions from planning.md
         "What are some upcoming hackathons?",
-        "What are some free hackathons?",
-        "I am visiting Californa, what is the hackthon history?",
-        "What are some hackathons stated on reddit?",
+        "Any free or low cost hackathons?",
+        "I am visiting Californa, what is a hackthon I can go to?",
+        "What are some hackathons on reddit?",
         "What are the common themes for hackathons?",
         "Can you provide me hackathons that are online?",
-        "What hackathon will you recommend?",
         "What hackathons will be taking place soon?",
     ]
     for q in questions:

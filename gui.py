@@ -62,12 +62,11 @@ class GUI:
                         ),
                         examples=[
                             "What are some upcoming hackathons?",
-                            "What are some free hackathons?",
-                            "I am visiting Californa, what is the hackthon history?",
-                            "What are some hackathons stated on reddit?",
+                            "Any free or low cost hackathons?",
+                            "I am visiting Californa, what is a hackthon I can go to?",
+                            "What are some hackathons on reddit?",
                             "What are the common themes for hackathons?",
                             "Can you provide me hackathons that are online?",
-                            "What hackathon will you recommend?",
                             "What hackathons will be taking place soon?",
                         ],
                         cache_examples=False,
@@ -86,6 +85,7 @@ class GUI:
                                 <li>Reddit</li>
                                 <li>Devpost</li>
                                 <li>Devfolio</li>
+                                
                             </ul>
                             <hr style="border:none; border-top:1px solid #ddd6fe; margin:0.75rem 0;">
                             <p style="font-size:0.75rem; color:#7c3aed; margin:0; line-height:1.5;">
