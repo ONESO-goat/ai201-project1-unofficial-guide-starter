@@ -38,6 +38,35 @@ class Embeddings:
     #             })
     #     print(f"Loaded {len(documents)} rule document(s): {[d['game'] for d in documents]}")
     #     return documents
+    def get_collection(self):
+        """Return the ChromaDB collection. Used by app.py during ingestion."""
+        return self._collection
+
+
+    def embed_and_store(self,chunks):
+        """
+        Embed a list of chunks and store them in the vector database.
+
+        This function is already implemented — read through it before moving on.
+
+        _collection.add() takes three parallel lists built from the chunks
+        returned by chunk_document():
+        - documents : raw text strings — ChromaDB's embedding function converts
+                        these to vectors automatically using sentence-transformers
+        - metadatas : one dict per chunk, stored alongside the vector so that
+                        retrieve() can surface which game a result came from
+        - ids       : the unique chunk_id strings used to identify each entry
+
+        You don't generate embeddings manually here — you hand over the text
+        and ChromaDB handles the vector math.
+        """
+        self._collection.add(
+            documents=[c["text"] for c in chunks],
+            metadatas=[{"source": c["source"]} for c in chunks],
+            ids=[c["chunk_id"] for c in chunks],
+        )
+        print(f"Stored {self._collection.count()} total chunks in the vector database.")
+
 
     def dict_to_string(self, h:dict|list):
         """Hackthon already a dict, just transform it into string"""
@@ -50,7 +79,9 @@ class Embeddings:
             for item in h:
                 text += f"================ Hackathon {count} ================\n"
                 text += self.dict_to_string(item)
+                text += f"===================================================\n"
                 count += 1
+                
         return text
     
         # return f"""
@@ -63,7 +94,15 @@ class Embeddings:
         # The hackathon is free to attend: {h.get('is_free', "N/A")}\n
         # """
         
-    def chunk_document(self, text, info="hackathon"):
+    def chunk_document(self, 
+                       text:str, 
+                       name:str,
+                       tags,
+                       location:str,
+                       source:str,
+                       info="hackathon", 
+                       price:int=0, 
+                       is_free:bool=False):
         
         chunk_size = Config.CHUNK_SIZE
         overlap = Config.CHUNK_OVERLAP
@@ -81,7 +120,13 @@ class Embeddings:
             if len(chunk_text) >= min_length:
                 # if the length of the chunk is long enough, add it to the list with metadata
                 chunks.append({
-                    "text": chunk_text,
+                    "source":source,
+                    "tags": tags,
+                    "text":text,
+                    "name": name,
+                    "location":location,
+                    "is_free": is_free,
+                    "price": price,
                     "subject": info,
                     "chunk_id": f"{prefix}_{counter}",
                 })

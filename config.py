@@ -6,7 +6,7 @@ load_dotenv()
 # --- LLM ---
 class Config:
     GROQ_API_KEY = os.getenv("GROQ_API_KEY")
-    
+    EVENTBRITE_API_KEY = os.getenv("EVENTBRITE_API_KEY")
     LLM_MODEL = "llama-3.3-70b-versatile"
     CHUNK_SIZE = 300
     CHUNK_OVERLAP = 60

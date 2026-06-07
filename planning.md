@@ -128,5 +128,66 @@ your-uni/clubs
 
 
 **Milestone 4 — Embedding and retrieval:**
+Question: What are some upcoming hackathons?
+Answer: Based on the provided results, here are some upcoming hackathons:
 
+1. GDG Solution Hacks - June 27-29, Toronto, Canada
+2. SpurHacks - June 20-22, Waterloo, Ontario, Canada
+3. Hack4Bengal 4.0 - June 20-22, Newtown, West Bengal, India
+4. Hack 4 Her - June 14-15, Monterrey, Nuevo León, Mexico
+5. Global Hack Week: GenAI - June 13-19, Everywhere, Worldwide
+6. MasseyHacks - May 17-18, Windsor, Ontario, Canada
+7. JAMHacks 9 - May 16-18, Waterloo, Ontario, Canada
+8. NMIT HACKS 2025 - May 16-18, Bengaluru, Karnataka, India
+9. DesignVerse at UCR - May 10-11, Riverside, California, US
+10. HACKMESA - May 9-10, Los Angeles, CA, US
+11. Global Hack Week: Open Source Week - May 9-15, Everywhere, Worldwide
+12. GDSCHACKS - May 2-4, Guelph, Ontario, Canada
+13. HackUPC - May 2-4, Barcelona, Catalunya, Barcelona, ES
+14. HackDartmouth X - April 26-27, Hanover, New Hampshire, US
+15. DragonHacks 11 - April 26-27, Philadelphia, PA, US
+16. JacHacks - April 26-27, Quebec, Sainte-Anne-de-Bellevue, CA
+17. MorganHacks - April 26-27, Baltimore, Maryland, US
+18. Hacktech by Caltech - April 25-27, Pasadena, CA, US
+19. LA Hacks - April 25-27, Los Angeles, California, US
+20. HackDavis 2025 - April 19-20, Davis, California, US
+21. UTA Datathon - April 12-13, Arlington, Texas, US
+22. Hackabull - April 12-13, Tampa, Florida, US
+23. Bit Hacks - April 11-13, Irvine, California, US
+24. Bitcamp 2025 - April 11-13, College Park, Maryland, US
+
+Please note that the dates and locations may be subject to change, and it's always a good idea to check the official website or contact the organizers for the most up-to-date information.
+
+---
+
+Question: What are some free hackathons?
+Answer: Some of the free hackathons include:
+1. GDG Solution Hacks 
+2. SpurHacks 
+3. Hack4Bengal 4.0 
+4. Hack 4 Her 
+5. Global Hack Week: GenAI 
+6. MasseyHacks 
+7. JAMHacks 9 
+8. NMIT HACKS 2025 
+9. DesignVerse at UCR 
+10. HACKMESA 
+11. Global Hack Week: Open Source Week 
+12. GDSCHACKS 
+13. HackUPC 
+14. HackDartmouth X 
+15. DragonHacks 11 
+16. JacHacks 
+17. MorganHacks 
+18. Hacktech by Caltech 
+19. LA Hacks 
+20. HackDavis 2025 
+21. UTA Datathon 
+22. Hackabull 
+23. Bit Hacks 
+24. Bitcamp 2025 
+
+Please note that this list may not be exhaustive as it is based on the provided data. For a complete and up-to-date list, you may want to check the relevant websites or sources.
+
+---
 **Milestone 5 — Generation and interface:**
